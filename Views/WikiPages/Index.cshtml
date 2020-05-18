@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Information_Wiki_Final.Models.WikiPage>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Wiki Pages</h1>
+
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+
+@if (User.IsInRole("author"))
+{
+<p>
+    <a asp-action="Create">+ Add New Page</a>
+</p>
+
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.LastModifed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastModifed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author.Email)
+                </td>
+                <td>
+
+                    <a asp-action="Details" asp-route-id="@item.Id">View</a>
+                   @if (User.IsInRole("author") && User.Identity.Name.Equals(item.Author.Email))
+                   {
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                   }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

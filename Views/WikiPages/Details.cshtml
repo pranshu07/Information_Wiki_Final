@@ -1,0 +1,25 @@
+﻿@model Information_Wiki_Final.Models.WikiPage
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>WikiPage</h4>
+    <hr />
+
+    <h2>       @Html.DisplayFor(model => model.Title) </h2>
+
+    <h5> By @Html.DisplayFor(model => model.Author.Name), Email :  @Html.DisplayFor(model => model.Author.Email) </h5>
+    <h6>Last Modified  @Html.DisplayFor(model => model.LastModifed) </h6>
+
+    <p>
+
+        @Html.DisplayFor(model => model.Content)
+
+
+    </p>
+</div>
+
